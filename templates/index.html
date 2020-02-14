@@ -1,0 +1,27 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>Connect to the Internet</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='stylesheet.css')}}">
+</head>
+
+<body>
+    <div class="header">
+        <!-- I'd like the robots hostname to appear here. -->
+    </div>
+    <div class="content">
+        <form name="wireless" action="/submit" method="POST">
+            <label>SSID</label>
+            <input type="text" name="ssid" value="">
+            <br>
+            <label>PSK</label>
+            <input type="password" name="psk" value="">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+
+</html>
