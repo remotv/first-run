@@ -1,5 +1,6 @@
 import argparse
 import logging
+import logging.handlers
 import os
 import os.path
 import sys
@@ -11,7 +12,7 @@ from flask import (Flask, redirect, render_template, request,
 config = ConfigParser()
 
 try:
-    with open('settins.conf', 'r') as fp:
+    with open('settings.conf', 'r') as fp:
         config.readfp(fp)
 except IOError:
     print("Unable to read settings.conf, file may be missing.")
@@ -26,24 +27,29 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setLevel(logging.getLevelName(
     config.get('logging', 'consoleLevel')))
 consoleFormatter = logging.Formatter(
-    '%(asctime)s - %(filename)s: %(message)s', '%H:%M:%S')
+    '%(asctime)s - %(name)s %(levelname)s: %(message)s', '%H:%M:%S')
 consoleHandler.setFormatter(consoleFormatter)
 try:
     fileHandler = logging.handlers.RotatingFileHandler(config.get('logging', 'file'),
-        maxBytes=config.getint('logging', 'max_size'),
-        backupCount=config.getint('logging', 'num_backup'))
+        maxBytes=config.getint('logging', 'maxSize'),
+        backupCount=config.getint('logging', 'numBackup'))
 except IOError:
     print("Error: unable to write to log files. Check permissions are correct.")
     sys.exit(1)
 
-fileHandler.setLevel(logging.getLevelName(config.get('logging', 'fileLevel')))
-fileFormatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s - %(message)s', '%H:%M:%S')
+fileHandler.setLevel(logging.getLevelName(
+    config.get('logging', 'fileLevel')))
+fileFormatter = logging.Formatter(
+    '%(asctime)s %(name)s %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S')
 fileHandler.setFormatter(fileFormatter)
-
 log.addHandler(consoleHandler)
-log.addHandler(fileFormatter)
+log.addHandler(fileHandler)
 
 app = Flask(__name__)
+
+serverPort = config.getint('server', 'port')
+serverDebug = config.getboolean('server', 'debug')
+networkInterface = config.get('network', 'interface')
 
 
 @app.route('/')
@@ -57,10 +63,10 @@ def submit():
 
     ssid = request.form['ssid']
     psk = request.form['psk']
-    print("SSID: {}\tPSK: {}".format(ssid, psk))
+    log.debug("SSID: {}\tPSK: {}".format(ssid, psk))
     return "got", 200
 
 
 if __name__ == "__main__":
     log.critical('Starting network module')
-    app.run(debug=True, host="0.0.0.0", port=8000)
+    app.run(debug=serverDebug, host="0.0.0.0", port=serverPort)
