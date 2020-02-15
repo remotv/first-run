@@ -1,0 +1,38 @@
+body {
+  margin: 0 10px;
+  padding: 0;
+}
+
+#ssid-label {
+  grid-area: ssid-label;
+}
+
+#ssid-input {
+  grid-area: ssid-input;
+}
+
+#psk-label {
+  grid-area: psk-label;
+}
+
+#psk-input {
+  grid-area: psk-input;
+}
+
+#form-submit {
+  grid-area: form-submit;
+}
+
+.form-content {
+  margin: auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "ssid-label ssid-input"
+    "psk-label psk-input"
+    "form-submit form-submit";
+  width: 50vw;
+  max-width: 300px;
+
+}

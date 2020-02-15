@@ -10,17 +10,30 @@
 <body>
     <div class="header">
         <!-- I'd like the robots hostname to appear here. -->
+        <h1>Connect to the Internet</h1>
     </div>
     <div class="content">
-        <form name="wireless" action="/submit" method="POST">
-            <label>SSID</label>
-            <input type="text" name="ssid" value="">
-            <br>
-            <label>PSK</label>
-            <input type="password" name="psk" value="">
-            <br>
-            <input type="submit" value="Submit">
-        </form>
+        <p class="desc">
+            If you're seeing this, it means I failed to connect to any WiFi
+            networks in the area. Please fill out the form below and I will try
+            again with the information you've provided me.
+        </p>
+        <div class="form">
+            <form class="form-content" name="wireless" action="/submit" method="POST">
+                <label id="ssid-label">SSID</label>
+                <input id="ssid-input" type="text" name="ssid" value="">
+                <label id="psk-label">PSK</label>
+                <input id="psk-input" type="password" name="psk" value="">
+                <input id="form-submit" type="submit" value="Submit">
+            </form>
+        </div>
+        <p class="help">
+            <strong>What does this mean?</strong><br>
+            <ul>
+                <li><strong>SSID</strong> is the name of the network you want to connect to.</li>
+                <li><strong>PSK</strong> is the passkey for the network. If there is none, leave it blank.</li>
+            </ul>
+        </p>
     </div>
 </body>
 
