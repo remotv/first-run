@@ -10,3 +10,12 @@ I'd like this to
 3. Stop the wireless server and attempt connection to the selected/entered network
 
 4. Restart the server if it cannot connect.
+
+## Installation
+- Recommend using a virtualenvironment
+- designed for python3
+
+```
+pip3 install -r requirements.txt
+python3 app.py
+```
