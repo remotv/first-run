@@ -1,3 +1,5 @@
+# Critical bug in hostapd (the one bit of software for hosting networks) stops this project dead in its tracks until it's fixed.
+
 # first-run
 A simple wireless network and web server to help pre-built robots connect to the internet.
 
